@@ -3,19 +3,17 @@ import { Box } from '@mui/system'
 import { get } from 'lodash';
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
-import useAuth from '../Common/CustomHooks/useAuth';
-// import useAuth from '../Common/CustomHooks/useAuth';
 import { allUsers } from './Utils/helper'
 
 export default function Login(props) {
     let history = useHistory();
-    const {isAuth, loginButtonClick} = props;
-    // const[isAuth, login, logout] = useAuth(false)
+    const {loginButtonClick} = props;
     const [users, setUsers] = useState([]);
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
     useEffect(() => {
+        console.log("Login renders");
         setUsers(allUsers);
     }, []);
 

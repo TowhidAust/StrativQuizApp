@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react'
-import useAuth from '../Common/CustomHooks/useAuth';
-
+import React from 'react'
+import Quiz from './Quiz/Quiz'
 export default function Admin(props) {
-    const [isAuth, login, logout] = useAuth(true);
     return (
         <div className="admin-root">
-            <button onClick={logout}>Logout</button>
+            <Quiz/>
         </div>
-    )  
+    )
 }

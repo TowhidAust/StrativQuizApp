@@ -3,20 +3,17 @@ import React from "react"
 import { Route, Switch } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import './styles/index.scss';
-import Layout from "./components/Layout/Layout";
+import Layout from "./components/Common/Layout/Layout";
 import Admin from "./components/Admin";
 import Student from "./components/Student";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
-import { useHistory } from 'react-router';
 import useAuth from "./components/Common/CustomHooks/useAuth";
 
 function App() {
-  const [isAuth, login, logout] = useAuth(false);
-  const loginButtonClick = () => {
-    login()
-  }
+  const [isAuth, login] = useAuth(false);
+  const loginButtonClick = () => {login()}
   return (
-    <Layout>
+    <Layout isAuth={isAuth}>
       <div className="quiz-app-root">
         <Switch>
           <Route path="/" exact> 
