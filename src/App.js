@@ -1,5 +1,5 @@
 // import * as React from "react";
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Route, Switch } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import './styles/index.scss';
@@ -7,21 +7,30 @@ import Layout from "./components/Common/Layout/Layout";
 import Admin from "./components/Admin";
 import Student from "./components/Student";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
+import Home from "./components/Home";
 import useAuth from "./components/Common/CustomHooks/useAuth";
 
 function App() {
   const [isAuth, login] = useAuth(false);
-  const loginButtonClick = () => {login()}
+  const loginCallback = () => login();
+  console.log('appjs',isAuth);
+  useEffect(() => {
+    
+  }, [])
+
   return (
-    <Layout isAuth={isAuth}>
+    <Layout isLoggedIn = {isAuth}>
       <div className="quiz-app-root">
         <Switch>
-          <Route path="/" exact> 
-            <Login isAuth={isAuth} loginButtonClick={loginButtonClick}/>
+          <Route path="/" exact>
+            <Home/>
           </Route>
-          <ProtectedRoute path="/admin" component={Admin} auth={isAuth}/> 
-          <Route path="/student"> 
-            <Student/>
+          <Route path="/login">
+            <Login loginCallback={loginCallback}/>
+          </Route>
+          <ProtectedRoute path="/admin" component={Admin}/>
+          <Route path="/student">
+            <Student />
           </Route>
         </Switch>
       </div>

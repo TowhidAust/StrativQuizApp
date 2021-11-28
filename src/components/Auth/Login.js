@@ -3,11 +3,10 @@ import { Box } from '@mui/system'
 import { get } from 'lodash';
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
-import { allUsers } from './Utils/helper'
-
+import { allUsers } from './Utils/helper';
 export default function Login(props) {
+    const {loginCallback} = props;
     let history = useHistory();
-    const {loginButtonClick} = props;
     const [users, setUsers] = useState([]);
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -34,7 +33,7 @@ export default function Login(props) {
         }   
 
         if(isUserExists && role === 'admin') {
-            loginButtonClick()
+            loginCallback()
             history.push({
                 pathname: "/admin",
                 state: {
@@ -42,7 +41,7 @@ export default function Login(props) {
                 }
             });
         } else if(isUserExists && role === 'student'){
-            loginButtonClick()
+            loginCallback()
             history.push({
                 pathname: "/student",
                 state: {

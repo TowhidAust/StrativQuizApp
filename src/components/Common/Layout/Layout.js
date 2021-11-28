@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,11 +7,28 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useHistory } from 'react-router';
+import {Link} from "react-router-dom";
+import useAuth from '../CustomHooks/useAuth';
 const Layout = (props) => {
-    const { children, isAuth } = props;
+    const { children, isLoggedIn } = props;
     const history = useHistory();
-    const handleLogout = (e) => {
-        history.replace('/')
+    const [isAuth, setIsAuth] = useState(false);
+    const [auth, login, logout] = useAuth();
+    console.log('isLoggedIn', isLoggedIn)
+    useEffect(() => {
+        localStorage.getItem('isAuth') === 'true' ? setIsAuth(true) : setIsAuth(false);
+    }, [login])
+    
+    const handleLogout = () => {
+        logout();
+        setIsAuth(false) 
+        // history.push('/')
+    }
+    const handleLogin = () => {
+        history.push('/login')
+    }
+    const logoClickHandler = () => {
+        history.push('/')
     }
     
         return (
@@ -26,13 +43,13 @@ const Layout = (props) => {
                                 aria-label="menu"
                                 sx={{ mr: 2 }}
                             >
-                                <MenuIcon />
+                            <MenuIcon />
                             </IconButton>
-                            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                            <Typography variant="h6" component="div" sx={{ flexGrow: 1, cursor:"pointer" }} onClick={logoClickHandler}>
                                 QUIZ APP
                             </Typography>
-                            {isAuth?<Button color="inherit">Admin</Button>: <Button color="inherit">Admin</Button>}
-                            {isAuth? <Button color="inherit" onClick={handleLogout}>Logout</Button>:<Button color="inherit" onClick={handleLogout}>LOGIN</Button>}
+                            {isAuth === true?<Button color="inherit">Admin</Button>: <Button color="inherit">Admin</Button>}
+                            {isAuth === true? <Button color="inherit" onClick={handleLogout}><Link to="/">Logout</Link></Button>:<Button color="inherit" onClick={handleLogin}>LOGIN</Button>}
                         </Toolbar>
                     </AppBar>
                 </Box>
