@@ -6,6 +6,7 @@ import PreviewQuestionModal from './Modal/PreviewQuestionModal'
 import { quizCardData } from './Utils/helper'
 
 export default function Student() {
+    // eslint-disable-next-line
     const [quizCards, setQuizCard] = useState(quizCardData)
     const returnQuizCards = () => {
         return quizCards.map((item, index) => {

@@ -57,7 +57,7 @@ export default function PreviewQuestionModal(props) {
 
                 
             }
-
+            return 'Null'
         })
     }
 
