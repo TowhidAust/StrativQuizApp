@@ -8,59 +8,18 @@ import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import Layout from '../../Common/Layout/Layout';
 import CreateQuestionModal from '../Modal/CreateQuestionModal';
+import PreviewQuestionModal from '../Modal/PreviewQuestionModal';
+import { quizCardData } from '../Utils/helper';
 
 export default function Quiz() {
 
-    const [quizCards, setQuizCards] = useState([
-        {
-            id: 1,
-            quizTitle: 'PHYSICS',
-            startTime: "2021-12-01T04:00:00.946Z",
-            duration: 10,
-            endTime: "2021-12-01T05:00:00.946Z",
-            summary: "Exam time is fixed. You have to submit your answers within the given time.",
-            questions: [
-                {
-                    id: 'q1',
-                    question: "What is redux?",
-                    options: [{
-                        option1: "Global state mangement",
-                        option2: "React context",
-                        option3: "React component",
-                        option4: "None of the These",
-                        correctAnswer: "Global state",
-                    }]
-                }
-            ]
-        },
-        {
-            id: 2,
-            quizTitle: 'CHEMISTRY',
-            startTime: "2021-12-01T04:20:07.946Z",
-            endTime: "2021-12-01T05:20:07.946Z",
-            duration: 10,
-            summary: "Exam time is fixed. You have to submit your answers within the given time",
-        },
-        {
-            id: 3,
-            quizTitle: 'ICT',
-            startTime: "2021-12-01T04:20:07.946Z",
-            endTime: "2021-12-01T05:20:07.946Z",
-            duration: 10,
-            summary: "Exam time is fixed. You have to submit your answers within the given time",
-        }
-    ]);
-    const [modalOpen, setModalOpen] = useState(false)
-
-    const startButtonHandler = () => {
-        alert('Start Button clicked')
-    }
-
+    // eslint-disable-next-line
+    const [quizCards, setQuizCards] = useState(quizCardData);
 
     const returnQuizCards = () => {
         return quizCards.map((item, index) => {
             return (
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} key={index}>
                     <Card sx={{ minWidth: 275 }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
@@ -80,7 +39,7 @@ export default function Quiz() {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button size="small" onClick={startButtonHandler}>Details</Button>
+                            <Button size="small"><PreviewQuestionModal buttonText="preview" quizCardsData={quizCards} id={item.id}/></Button>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -91,6 +50,7 @@ export default function Quiz() {
     return (
         <Layout>
             <Box sx={{ width: "80%", margin: "auto", marginTop: "2%" }}>
+                <Typography variant="h5" component="div"> Welcome Admin</Typography>
                 <CreateQuestionModal buttonText="Create" />
                 <Grid container spacing={2}>
                     {returnQuizCards()}

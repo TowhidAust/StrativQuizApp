@@ -7,12 +7,12 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useHistory } from 'react-router';
-import { Link } from "react-router-dom";
 import useAuth from '../CustomHooks/useAuth';
 const Layout = (props) => {
-    const { children, isLoggedIn } = props;
+    const { children } = props;
     const history = useHistory();
     const [isAuth, setIsAuth] = useState(false);
+    // eslint-disable-next-line
     const [auth, login, logout] = useAuth();
 
     useEffect(() => {
@@ -50,7 +50,7 @@ const Layout = (props) => {
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1, cursor: "pointer" }} onClick={logoClickHandler}>
                             QUIZ APP
                         </Typography>
-                        {isAuth === true ? <Button color="inherit">Admin</Button> : <Button color="inherit">Admin</Button>}
+                        {/* {isAuth === true ? <Button color="inherit">Admin</Button> : <Button color="inherit">Admin</Button>} */}
                         {isAuth === true ? <Button color="inherit" onClick={handleLogout}>LOGOUT</Button> : <Button color="inherit" onClick={handleLogin}>LOGIN</Button>}
                     </Toolbar>
                 </AppBar>

@@ -2,7 +2,7 @@ export const allUsers = [
     {
         firstName: "Towhidul",
         lastName: "Islam",
-        email: "towhidul@gmail.com",
+        email: "user@gmail.com",
         phone: "01737010194",
         password: "123456",
         role: "student"
