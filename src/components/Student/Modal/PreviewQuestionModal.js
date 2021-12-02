@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 
 const style = {
     position: 'absolute',
@@ -15,8 +16,8 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-    maxHeight:"70vh",
-    overflow:"auto"
+    maxHeight: "70vh",
+    overflow: "auto"
 };
 
 export default function PreviewQuestionModal(props) {
@@ -25,37 +26,36 @@ export default function PreviewQuestionModal(props) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const handleRadioButtonChange = (e) => {
+        console.log("value", e.target.value)
+    }
     const returnAllQuestions = () => {
         return quizCardsData.map((item, index) => {
-            if(item.id === id) {
+            if (item.id === id) {
                 console.log(item.id, id)
                 const questionsArr = item.questions;
                 return questionsArr.map((item, index) => {
-    
+
                     return (
                         <Box key={index}>
+
                             <Typography variant="inherit" component="h2">
-                                Question: {item.question}
+                                Question-{index+1}: {item.question}
                             </Typography>
-                            <Typography variant="subtitle1" component="h2" >
-                               Option1: {item.options[0].option1}
-                            </Typography>
-                            <Typography variant="subtitle1" component="h2" >
-                               Option2: {item.options[0].option2}
-                            </Typography>
-                            <Typography variant="subtitle1" component="h2" >
-                               Option3: {item.options[0].option3}
-                            </Typography>
-                            <Typography variant="subtitle1" component="h2" >
-                               Option4: {item.options[0].option4}
-                            </Typography>
-                            <Typography variant="subtitle1" component="h2" >
-                               correctAnswer: {item.options[0].correctAnswer}
-                            </Typography>
+                            <FormControl component="fieldset">
+                                <RadioGroup
+                                    defaultValue=""
+                                    name="radio-buttons-group"
+                                    onChange={handleRadioButtonChange}
+                                >
+                                    <FormControlLabel value={item.options[0].option1} control={<Radio />} label={item.options[0].option1} />
+                                    <FormControlLabel value={item.options[0].option2} control={<Radio />} label={item.options[0].option2} />
+                                    <FormControlLabel value={item.options[0].option3} control={<Radio />} label={item.options[0].option3} />
+                                    <FormControlLabel value={item.options[0].option4} control={<Radio />} label={item.options[0].option4} />
+                                </RadioGroup>
+                            </FormControl>
                         </Box>)
                 })
-
-                
             }
             return null;
         })
@@ -73,9 +73,10 @@ export default function PreviewQuestionModal(props) {
             >
                 <Box sx={style}>
                     <Typography variant="h6" component="h2" align="right" >
-                        <CloseOutlinedIcon onClick={handleClose} sx={{ cursor: "pointer" }}/>
+                        <CloseOutlinedIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
                     </Typography>
                     {returnAllQuestions()}
+                    <Box textAlign="left"><Button variant="contained">Submit</Button></Box>
                 </Box>
             </Modal>
         </div>
